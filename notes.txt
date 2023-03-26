@@ -10,6 +10,8 @@ Logged In:
 
 Admin Login: 
 - View all songs 
+- should not be allowed to delete songs. 
+- allowed to view all accounts, delete accounts? 
 
 
 ### To DO ####

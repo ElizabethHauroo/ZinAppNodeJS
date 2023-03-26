@@ -17,6 +17,7 @@ const app = express();
 // Use EJS as the template engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(express.static('views'));
 
 
 
@@ -85,7 +86,7 @@ app.get('/', (req, res) => {
         console.error('Error destroying session:', err);
         return res.sendStatus(500);
       }
-      res.redirect('/login');
+      res.redirect('/');
     });
   });
 

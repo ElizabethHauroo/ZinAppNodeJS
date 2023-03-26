@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Song</title>
-  <link
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
+    <title>Song</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
+
 <body>
     <%- include('./partials/navbar.ejs') %>
-  <h1><%= song.title %></h1>
-  <a href="/logout">Logout</a>
-  <hr>
 
-  <p><%= song.style %></p>
-  <br>
+        <!--- this should be a div container -->
+        <div class="SingleSong">
+            <h1>
+                <%= song.title %>
+            </h1>
+            <p>Style: <%= song.style %></p>
+        </div>
+        <hr>
 
-  <a href="/songs">Back to Songs</a>
-  <a href="/songs/<%= song._id %>/edit">Edit Song</a>
-  <form action="/songs/<%= song._id %>/delete" method="post" style="display:inline">
-    <button type="submit">Delete Song</button>
-  </form>
+
+        <br>
+
+        <a href="/songs" >Back to Songs</a>
+        <a href="/songs/<%= song._id %>/edit">Edit Song</a>
+        <form action="/songs/<%= song._id %>/delete" method="post" style="display:inline">
+            <button type="submit">Delete Song</button>
+        </form>
 </body>
+
 </html>
