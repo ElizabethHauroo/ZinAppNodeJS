@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Songs</title>
+  <link
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body>
+    <%- include('./partials/navbar.ejs') %>
+  <h1>Songs</h1>
+  <a href="/logout">Logout</a>
+  <hr>
+
+  <a href="/songs/create">Create New Song</a>
+  <br>
+  <br>
+
+  <ul>
+    <% songs.forEach(song => { %>
+      <li>
+        <a href="/songs/<%= song._id %>"><%= song.title %></a>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>

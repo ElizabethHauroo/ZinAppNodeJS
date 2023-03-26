@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Song</title>
+  <link
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body>
+    <%- include('./partials/navbar.ejs') %>
+  <h1>Edit Song</h1>
+  <a href="/logout">Logout</a>
+  <hr>
+
+  <form action="/songs/<%= song._id %>/update" method="post">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" value="<%= song.title %>">
+    <br>
+    <br>
+    <label for="style">Style:</label>
+    <textarea id="style" name="style"><%= song.style %></textarea>
+    <br>
+    <br>
+    <button type="submit">Update Song</button>
+  </form>
+
+  <a href="/songs/<%= song._id %>">Cancel</a>
+</body>
+</html>

@@ -7,6 +7,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const User = require('./models/user');
+const Song = require('./models/song');
 const path = require('path');
 const { checkAuthenticated, checkNotAuthenticated } = require('./middleware/authMiddleware');
 
@@ -87,6 +88,130 @@ app.get('/', (req, res) => {
       res.redirect('/login');
     });
   });
+
+  // SONGS CRUD
+
+  //create
+  app.post('/songs', isAuthenticated, async (req, res) => {
+    const song = new Song({
+      userId: req.user.id,
+      title: req.body.title,
+      style: req.body.style
+    });
+  
+    try {
+      const savedSong = await song.save();
+      res.redirect('/songs/' + savedSong.id);
+    } catch (err) {
+      console.error('Error creating song:', err);
+      res.status(500).send('Error creating song');
+    }
+  });
+
+    //read (filtered by user)
+    app.get('/songs', isAuthenticated, async (req, res) => {
+      try {
+        const songs = await Song.find({ userId: req.user.id });
+        res.render('songs', { songs });
+      } catch (err) {
+        console.error('Error fetching songs:', err);
+        res.status(500).send('Error fetching songs');
+      }
+    });
+
+    // Create new song form
+app.get('/songs/create', isAuthenticated, (req, res) => {
+  res.render('create-song', { title: 'Create a New Song' });
+});
+
+  app.get('/songs/:id([a-fA-F0-9]{24})', isAuthenticated, async (req, res) => {
+    try {
+      const song = await Song.findOne({ _id: req.params.id, userId: req.user.id });
+      if (!song) {
+        res.status(404).send('Song not found');
+      } else {
+        res.render('song', { song });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error fetching song');
+    }
+  });
+
+  //Edit
+
+  app.get('/songs/:id([a-fA-F0-9]{24})/edit', isAuthenticated, async (req, res) => {
+    try {
+      const song = await Song.findOne({ _id: req.params.id, userId: req.user.id });
+      if (!song) {
+        res.status(404).send('Song not found');
+      } else {
+        res.render('editSong', { song });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error fetching song');
+    }
+  });
+
+
+    //update
+    app.post('/songs/:id([a-fA-F0-9]{24})/update', isAuthenticated, async (req, res) => {
+      try {
+        const updatedSong = await Song.findOneAndUpdate(
+          { _id: req.params.id, userId: req.user.id },
+          {
+            title: req.body.title,
+            style: req.body.style
+          },
+          { new: true }
+        );
+        res.redirect('/songs/' + updatedSong.id);
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Error updating song');
+      }
+    });
+
+      
+  //delete
+
+  app.post('/songs/:id([a-fA-F0-9]{24})/delete', isAuthenticated, async (req, res) => {
+    try {
+      await Song.deleteOne({ _id: req.params.id, userId: req.user.id });
+      res.redirect('/songs');
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error deleting song');
+    }
+  });
+
+  //read admin
+  app.get('/admin/songs', isAuthenticated, isAdmin, async (req, res) => {
+    try {
+      const songs = await Song.find();
+      res.render('adminSongs', { songs });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error fetching songs');
+    }
+  });
+  
+  //checking for user/admin access 
+
+  function isAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.redirect('/login');
+  }
+  
+  function isAdmin(req, res, next) {
+    if (req.user && req.user.username === process.env.ADMIN_USERNAME) {
+      return next();
+    }
+    res.status(403).send('Access Denied. Admins Only');
+  }
   
   
 

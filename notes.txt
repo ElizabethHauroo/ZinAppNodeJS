@@ -1,3 +1,24 @@
+##### Flow
+
+Home: 
+Not Logged In: options to login/register
+
+Logged In: 
+- view playlist
+- logout 
+- create new song
+
+Admin Login: 
+- View all songs 
+
+
+### To DO ####
+password strength
+injection
+
+
+
+
 #### SECURE NOTES ########
 it is safer to have the password for admin saved in the env variables.   
 
@@ -6,7 +27,32 @@ it is safer to have the password for admin saved in the env variables.
 
 
 
+app.get('/songs', isAuthenticated, async (req, res) => {
+    try {
+      const songs = await Song.find({ userId: req.user.id });
+      res.render('songs', { songs });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error fetching songs');
+    }
+  });
 
+
+    app.post('/songs/create', isAuthenticated, async (req, res) => {
+    const song = new Song({
+      userId: req.user.id,
+      title: req.body.title,
+      style: req.body.style
+    });
+  
+    try {
+      const savedSong = await song.save();
+      res.redirect('/songs/' + savedSong.id);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error creating song');
+    }
+  });
 
 
 

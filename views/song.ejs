@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Song</title>
+  <link
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body>
+    <%- include('./partials/navbar.ejs') %>
+  <h1><%= song.title %></h1>
+  <a href="/logout">Logout</a>
+  <hr>
+
+  <p><%= song.style %></p>
+  <br>
+
+  <a href="/songs">Back to Songs</a>
+  <a href="/songs/<%= song._id %>/edit">Edit Song</a>
+  <form action="/songs/<%= song._id %>/delete" method="post" style="display:inline">
+    <button type="submit">Delete Song</button>
+  </form>
+</body>
+</html>
