@@ -21,17 +21,17 @@
       <h3> Admin Actions: </h3>
       <div class ="adminActionsDiv">
         <button class="btn btn-light" href="/admin/songs"><a href="/admin/songs">View All Entries</a></button>
-        <button class="btn btn-light" href="/logout"><a href="/logout">View All Users</a></button>
-        <button class="btn btn-light" href="/logout"><a href="/logout">Delete Users</a></button>
+        <button class="btn btn-light" href="/all-users"><a href="/all-users">Delete Users</a></button>
+        
 
       </div>
-      <button class="btn btn-warning" href="/logout"><a href="/logout">Logout</a></button>
+     
       
   </div>
   <% } else { %>
     <div class="adminAccessDenied">
       <p> Attention! You do not have the access rights to view this page.<br> Log in as Admin </p>
-      <button class="btn btn-warning" href="/logout">Logout</button>
+      <img src="\media\accessdenied.gif" alt="Access Denied" width="300" height="200">
     </div>
   <% } %>
 

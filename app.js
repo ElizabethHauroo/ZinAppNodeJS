@@ -19,6 +19,9 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('views'));
 
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -201,6 +204,37 @@ app.get('/songs/create', isAuthenticated, (req, res) => {
       res.status(500).send('Error fetching songs');
     }
   });
+
+  app.get('/all-users', async (req, res) => {
+    try {
+      const users = await User.find({});
+      res.render('all-users', { users });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Internal server error');
+    }
+  });
+  /* delete user by id
+  app.post('/delete-user/:id', async (req, res) => {
+    try {
+      await User.findByIdAndDelete(req.params.id);
+      res.redirect('/all-users');
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Internal server error');
+    }
+  });*/
+
+  app.delete('/users/delete/:id', async (req, res) => {
+    try {
+      await User.findByIdAndDelete(req.params.id);
+      res.redirect('/all-users');
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Internal server error');
+    }
+});
+
   
   //checking for user/admin access 
 

@@ -1,3 +1,7 @@
+#### Bug Report ####
+
+adminSongs doesn't seem to be connected to the style.css file 
+
 ##### Flow
 
 Home: 
@@ -17,12 +21,17 @@ Admin Login:
 ### To DO ####
 password strength
 injection
+Song (view one song: css)
 
 
-
+#### INSECURE NOTES ########
+in admin/ejs 
+remove the check for admin so that we can delete the admin
+remove the check for admin so anyone can access the page in question 
 
 #### SECURE NOTES ########
-it is safer to have the password for admin saved in the env variables.   
+it is safer to have the password for admin saved in the env variables. 
+password verification step  
 
 
 
@@ -80,3 +89,14 @@ app.get('/logout', (req, res) => {
     failureRedirect: '/login',
     failureFlash: true
   }));
+
+  <!--<a href="#" onclick="return confirmDelete('<%= user._id %>');" class="delete-btn">Delete</a>
+                            
+                                <form id="deleteForm-<%= user._id %>" action="/users/delete/<%= user._id %>" method="POST"
+                                style="display: none;"></form>
+                                            <form action="/delete-user/<%= user._id %>" method="POST" style="display:inline;">
+                                                <a href="#" onclick="return confirmDelete('<%= user._id %>');" class="delete-btn">Delete</a>
+                    
+                                                <a onclick="confirmDelete('<%= user._id %>')" class="eachUserBTN btn btn-danger">Delete</a><br>
+                                                  
+                                              </form>-->

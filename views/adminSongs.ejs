@@ -6,21 +6,36 @@
     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     rel="stylesheet"
   />
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <%- include('./partials/navbar.ejs') %>
-  <h1>All Songs</h1>
-  <a href="/logout">Logout</a>
-  <hr>
+  <%- include('./partials/navbar.ejs') %>
+    <div class="homeDiv" style="width: 800px; margin: auto; text-align: center;">
+      <h1>All Songs</h1>
 
-  <ul>
-    <% songs.forEach(song => { %>
-      <li>
-        <strong>User ID:</strong> <%= song.userId %><br>
-        <strong>Title:</strong> <%= song.title %><br>
-        <strong>Style:</strong> <%= song.style %>
-      </li>
-    <% }) %>
-  </ul>
+      <hr>
+
+      <ul style="display: flex; flex-wrap: wrap;">
+        <% songs.forEach(song=> { %>
+          <li style="margin:10px; min-width: 300px;
+          height:80px; 
+          list-style: none; 
+          background-color: rgb(230, 233, 236);
+          padding: 10px;
+          border: 0.5px;
+          border-style:solid;
+          border-radius: 5px;">
+            <!--
+            <strong>User ID:</strong>
+            <%= song.userId %><br>-->
+              <strong>Title:</strong>
+              <%= song.title %><br>
+                <strong>Style:</strong>
+                <%= song.style %>
+          </li>
+          <% }) %>
+      </ul>
+    </div>
 </body>
+
 </html>

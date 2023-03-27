@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <%- include('./partials/navbar.ejs') %>
+        <% if (user && user.isAdmin) { %>
+            <div>
+                <h1>All Users</h1>
+                <ul class="ulEachUser">
+                    <% users.forEach((user)=> { %>
+                        <% if (!user.isAdmin) { %>
+                            <li class="eachUser">
+                                <strong>Username:</strong>
+                                <%= user.username %>
+                                    <form action="/users/delete/<%= user._id %>?_method=DELETE" method="POST"
+                                        onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                        <button class="eachUserBTN btn btn-danger" type="submit">Delete</button>
+                                    </form>
+
+
+                            </li>
+                            <% } %>
+                                <% }) %>
+                </ul>
+            </div>
+            <% } else { %>
+                <div class="adminAccessDenied">
+                    <p> Attention! You do not have the access rights to view this page.<br> Log in as Admin </p>
+                    <img src="\media\accessdenied.gif" alt="Access Denied" width="300" height="200">
+                </div>
+                <% } %>
+
+                    <script>
+                        function confirmDelete(userId) {
+                            if (confirm('Are you sure you want to delete this user?')) {
+                                // If the user confirms, submit the delete form
+                                document.getElementById(`deleteForm-${userId}`).submit();
+                                return true;
+                            }
+                            return false;
+                        }
+                    </script>
+</body>
+
+</html>

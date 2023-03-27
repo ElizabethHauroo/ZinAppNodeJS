@@ -6,26 +6,33 @@
     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     rel="stylesheet"
   />
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <%- include('./partials/navbar.ejs') %>
-  
-  <a href="/logout">Logout</a>
-  <hr>
-    <% if (user && user.isAdmin) { %>
-        <h1>Everyones Songs</h1>
-    <% } else if (user) { %>
-        <% } %>
-  <a href="/songs/create">Create New Song</a>
-  <br>
-  <br>
 
-  <ul>
-    <% songs.forEach(song => { %>
-      <li>
-        <a href="/songs/<%= song._id %>"><%= song.title %></a>
-      </li>
-    <% }) %>
-  </ul>
+
+        <div class="homeDiv">
+            <% if (user && user.isAdmin) { %>
+                <h1>Everyones Songs</h1>
+                <% } else if (user) { %>
+                    <% } %>
+                        <a href="/songs/create"><button class="btn btn-success"">New Entry</button></a>
+                        <br>
+                        <br>
+
+                        <ul class="ulEachUser">
+                            <% songs.forEach(song=> { %>
+                                <a href="/songs/<%= song._id %>">
+                                <li class="eachUser">
+
+                                    <%= song.title %><br>
+                                        <strong>Style:</strong>
+                                        <%= song.style %>
+                                </li></a>
+                                <% }) %>
+                        </ul>
+        </div>
 </body>
+
 </html>

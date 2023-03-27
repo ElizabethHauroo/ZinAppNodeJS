@@ -6,11 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
   <%- include('./partials/navbar.ejs') %>
-  <div class="container">
+  <div class="homeDiv">
     <h1>Login</h1>
 
     <form class="row g-3" action="/login" method="post">
@@ -21,9 +22,9 @@
       <div class="col-auto">
         <label class="visually-hidden" for="password">Password:</label>
         <input class="form-control" id="inputPassword2" type="password" name="password" id="password" required>
-      </div>
-      <div class="container">
-        <button class="btn btn-primary mb-3" type="submit">Login</button>
+      </div> 
+      <div class="myFormBTN">
+        <button class=" btn btn-primary mb-3" type="submit">Login</button>
         <button class="btn btn-primary mb-3" href="/register">Register</button>
       </div>
     </form>
