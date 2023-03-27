@@ -10,32 +10,37 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
-<body class="background">
+<body>
   <%- include('./partials/navbar.ejs') %>
 
-    <div class="container text-center ">
-      <div class="row">
-        <div class="col-md-6 offset-md-3 homeDiv"></div>
-        <% if (user) { %>
-          <h1 class="test">Welcome <%= user.username %>
-          </h1>
+    <div class="homeDiv">
+
+
+      <% if (user&& user.isAdmin) { %>
+        <div class="container adminDiv">
+  
+          <h1>Admin Page</h1>
+    
+          <p>Hello, <%= user.username %>!</p>
+          <h3> Admin Actions: </h3>
+          <div class ="adminActionsDiv">
+            <button class="btn btn-light" href="/admin/songs"><a href="/admin/songs">View All Entries</a></button>
+            <button class="btn btn-light" href="/logout"><a href="/logout">View All Users</a></button>
+            <button class="btn btn-light" href="/logout"><a href="/logout">Delete Users</a></button>
+    
+          </div>
+          <button class="btn btn-warning" href="/logout"><a href="/logout">Logout</a></button>
+          
+      </div>
+        <% } else if (user) { %>
+          <h1 class="test">Welcome <%= user.username %>!</h1>
+          
           <% } else { %>
             <h1>Welcome Stranger!</h1>
-            <p>Not Much to do here for you unless you're registered.. Here's a random joke for you then.. </p>
+            <p>Not Much to do here for you unless you're registered.. </p>
             <% } %>
-              <!--
-  <% if (user) { %>
-    <p>Hello, <%= user.username %>!</p>
-    
-    <a href="/songs">View Your Playlist! </a>
-    <a href="/logout">Logout</a>
-    <a href="/songs/create">Create New Song</a>
-  <% } else { %>
-    <a href="/login">Login</a> |
-    <a href="/register">Register</a>
-  <% } %>-->
-      </div>
-    </div>
+
+
     </div>
 </body>
 

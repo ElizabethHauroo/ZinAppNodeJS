@@ -55,12 +55,16 @@ app.get('/', (req, res) => {
   app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
     failureRedirect: '/login',
     failureFlash: true
-  }), (req, res) => {
+  }), async (req, res) => {
     if (req.body.username === process.env.ADMIN_USERNAME && req.body.password === process.env.ADMIN_PSWD) {
-        // Redirect to admin page
+        req.user.isAdmin = true;
+        await req.user.save();  
+      
+      // Redirect to admin page
+
         res.redirect('/admin');
       } else {
-        // Redirect to user page
+        
         res.redirect('/');
       }
   });

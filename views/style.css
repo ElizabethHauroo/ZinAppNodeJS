@@ -2,11 +2,39 @@
    color: green; 
 }
 .homeDiv{
+    width: 800px;
+    height: 500px;
+    margin: auto;
+    padding: 20px;
     border: 5px;
+    background-color: bisque;
+    text-align: center;
 }
 .myFormBTN{
     margin-top: 30px;
     
+}
+.adminDiv{
+    background-color: aqua;
+    text-align: center;
+    width: 800px;
+    height: 500px;
+    margin: auto;
+    padding: 20px;
+}
+
+.adminActionsDiv{
+    margin: auto;
+    margin-bottom: 20px;
+    background-color: bisque;
+    width: 600px;
+    height:200px;
+    padding: 40px;
+
+}
+.adminAccessDenied{
+    background-color: red;
+    color: aliceblue;
 }
 
 div.polaroid {
@@ -35,8 +63,4 @@ div.polaroid {
     padding: 10px;
     background-color: ghostwhite;
     }
-    
-.test{
-    color: red;
-    font-size: 45px;
-}
+

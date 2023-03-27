@@ -1,18 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
 <body>
-  <h1>Welcome Admin Page</h1>
-  <% if (user) { %>
-    <p>Hello, <%= user.username %>!</p>
-    <a href="/logout">Logout</a>
+  <%- include('./partials/navbar.ejs') %>
+
+  <% if (user && user.isAdmin) { %>
+  <div class="container adminDiv">
+  
+      <h1>Admin Page</h1>
+
+      <p>Hello, <%= user.username %>!</p>
+      <h3> Admin Actions: </h3>
+      <div class ="adminActionsDiv">
+        <button class="btn btn-light" href="/admin/songs"><a href="/admin/songs">View All Entries</a></button>
+        <button class="btn btn-light" href="/logout"><a href="/logout">View All Users</a></button>
+        <button class="btn btn-light" href="/logout"><a href="/logout">Delete Users</a></button>
+
+      </div>
+      <button class="btn btn-warning" href="/logout"><a href="/logout">Logout</a></button>
+      
+  </div>
   <% } else { %>
-    <a href="/login">Login</a> |
-    <a href="/register">Register</a>
+    <div class="adminAccessDenied">
+      <p> Attention! You do not have the access rights to view this page.<br> Log in as Admin </p>
+      <button class="btn btn-warning" href="/logout">Logout</button>
+    </div>
   <% } %>
+
 </body>
+
 </html>

@@ -9,10 +9,13 @@
 </head>
 <body>
     <%- include('./partials/navbar.ejs') %>
-  <h1>Songs</h1>
+  
   <a href="/logout">Logout</a>
   <hr>
-
+    <% if (user && user.isAdmin) { %>
+        <h1>Everyones Songs</h1>
+    <% } else if (user) { %>
+        <% } %>
   <a href="/songs/create">Create New Song</a>
   <br>
   <br>
