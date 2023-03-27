@@ -22,6 +22,9 @@ Admin Login:
 password strength
 injection
 Song (view one song: css)
+if username already exists? this is checked, but doesn't show prompt
+admin page css
+
 
 
 #### INSECURE NOTES ########
