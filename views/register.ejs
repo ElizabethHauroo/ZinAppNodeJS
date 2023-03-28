@@ -4,18 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+  <%- include('./partials/navbar.ejs') %>
+  <img src="media/dance4.jpg" class="background">
+
+  <div class="homeDiv">
   <h1>Register</h1>
-  <form action="/register" method="post">
+  <form class="row g-3 middleForm" action="/register" method="post">
+    <div class="col-auto">
     <label for="username">Username:</label>
-    <input type="text" name="username" id="username" required>
-    <br>
+    <input class="form-control" type="text" name="username" id="username" required>
+    <br></div>
+    <div class="col-auto">
     <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required>
-    <br>
-    <button type="submit">Register</button>
+    <input class="form-control" type="password" name="password" id="password" required>
+    <br></div>
+    <div class="myFormBTN">
+    <button class="btn btn-outline-success mb-3" type="submit">Register</button>
+  </div>
   </form>
-  <a href="/login">Login</a>
+  
+  <div><a href="/login">
+    <button class="btn btn-outline-info mb-3" href="/login">Have an Account? Login Here!</button></a>
+  </div>
+  
+
+</div>
 </body>
 </html>

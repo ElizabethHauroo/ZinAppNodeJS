@@ -11,6 +11,13 @@
 
 <body>
     <%- include('./partials/navbar.ejs') %>
+    
+    <% if (user && user.isAdmin) { %>
+        <div class="adminAccessDenied">
+            <p> As Admin, you really shouldn't be doing that.<br> Log in as a normal user instead. </p>
+            <img src="\media\accessdenied.gif" alt="Access Denied" width="300" height="200">
+        </div>
+        <% } else { %>
         <div class="container polaroid">
             <div class="maincard">
                 <h1>Add a song to your playlist </h1>
@@ -31,6 +38,7 @@
                 </form>
             </div>
         </div>
+        <% } %>
 </body>
 
 </html>

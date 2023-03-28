@@ -11,10 +11,12 @@
 
 <body>
   <%- include('./partials/navbar.ejs') %>
+  <img src="media/dance4.jpg" class="background">
+  
   <div class="homeDiv">
     <h1>Login</h1>
 
-    <form class="row g-3" action="/login" method="post">
+    <form class="row g-3 middleForm" action="/login" method="post">
       <div class="col-auto">
         <label for="username">Username:</label>
         <input class="form-control" type="text" name="username" id="username" required>
@@ -24,10 +26,13 @@
         <input class="form-control" id="inputPassword2" type="password" name="password" id="password" required>
       </div> 
       <div class="myFormBTN">
-        <button class=" btn btn-primary mb-3" type="submit">Login</button>
-        <button class="btn btn-primary mb-3" href="/register">Register</button>
+        <button class="btn btn-outline-success mb-3" type="submit">Login</button>
+        
       </div>
     </form>
+    <div>
+      <a href="/register"><button class="btn btn-outline-info mb-3" href="/register">No Account? Register Here!</button></a>
+    </div>
   </div>
   
 </body>

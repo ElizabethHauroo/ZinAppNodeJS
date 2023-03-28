@@ -13,15 +13,20 @@
   <%- include('./partials/navbar.ejs') %>
 
   <% if (user && user.isAdmin) { %>
+  <img src="media/dance4.jpg" class="background">
   <div class="container adminDiv">
   
-      <h1>Admin Page</h1>
+    <div class="rotating-text-wrapper">
+      <h2>Admin Page</h2>
+      <h2><%= user.username %>!</h2>
+    </div>
 
       <p>Hello, <%= user.username %>!</p>
       <h3> Admin Actions: </h3>
       <div class ="adminActionsDiv">
-        <button class="btn btn-light" href="/admin/songs"><a href="/admin/songs">View All Entries</a></button>
-        <button class="btn btn-light" href="/all-users"><a href="/all-users">Delete Users</a></button>
+        <p>As admin of ZinList, here are your admin priviledges: </p>
+        <button class="btn btn-info" href="/admin/songs"><a class="noLink" href="/admin/songs">View All Entries</a></button>
+        <button class="btn btn-danger" href="/all-users"><a class="noLink"href="/all-users">Delete Users</a></button>
         
 
       </div>

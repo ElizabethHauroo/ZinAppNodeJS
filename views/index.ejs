@@ -12,6 +12,7 @@
 
 <body>
   <%- include('./partials/navbar.ejs') %>
+  <img src="media/dance4.jpg" class="background">
 
     <div class="homeDiv">
 
@@ -33,8 +34,19 @@
           
       </div>
         <% } else if (user) { %>
-          <h1 class="test">Welcome <%= user.username %>!</h1>
           
+          <div class="container">
+            <div class="rotating-text-wrapper">
+              <h2>Welcome</h2>
+              <h2><%= user.username %>!</h2>
+            </div>
+
+            
+            <p > As Zumba instructors, we all know the struggle of hearing a good song but forgetting to add it to our playlist afterwards. <br>Well, with ZinList you can keep track of all those dancefloor jams by adding them to your own playlist! <br> Use the tab above to view all those tunes you've already added, or add some more by clicking below! </p>
+            <div>
+              <button class="btn btn-outline-success" href="/songs/create">Got a new tune? </button>
+            </div>
+          </div>
           <% } else { %>
             <h1>Welcome Stranger!</h1>
             <p>Not Much to do here for you unless you're registered.. </p>
