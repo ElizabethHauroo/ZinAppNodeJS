@@ -32,6 +32,10 @@ in admin/ejs
 remove the check for admin so that we can delete the admin
 remove the check for admin so anyone can access the page in question 
 
+even though I changed the env variables, I can't login as admin I get an error
+is this because of the one admin only thing? 
+
+
 #### SECURE NOTES ########
 it is safer to have the password for admin saved in the env variables. 
 password verification step  
