@@ -20,7 +20,7 @@
                         <% if (!user.isAdmin) { %>
                             <li class="eachUser">
                                 <div style ="height: fit-content;">
-                                    <strong>Username:</strong>
+                                    <strong>User:</strong>
                                     <%= user.username %> <hr>
                                         <form action="/users/delete/<%= user._id %>?_method=DELETE" method="POST"
                                             onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be undone.');">
