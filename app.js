@@ -42,10 +42,12 @@ passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
       const user = await User.findOne({ username: username });
+      console.log('User found:', user);
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
       }
       if (user.password !== password) { // Compare plaintext passwords directly
+        console.log('Incorrect password');
         return done(null, false, { message: 'Incorrect password.' });
       }
       return done(null, user);
@@ -118,16 +120,37 @@ app.get('/', (req, res) => {
       });
   
       await newUser.save();
-      res.redirect('/login');
+      console.log('New user saved:', newUser);
+
+      req.login(newUser, (err) => {
+        if(err){
+          console.log('Error logging in user after registration:', err);
+          return next(err);
+        }
+        res.redirect('/');
+      });
+
+      
     } catch (e) {
+      console.log('Error registering user:', e);
       res.redirect('/register');
     }
+  });
+
+  app.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+      if (err) {
+        console.error('Error destroying session:', err);
+        return res.sendStatus(500);
+      }
+      res.redirect('/');
+    });
   });
 
   // SONGS CRUD
 
   //create
-  app.post('/songs', isAuthenticated, async (req, res) => {
+  app.post('/songs', checkAuthenticated, async (req, res) => {
     const song = new Song({
       userId: req.user.id,
       title: req.body.title,
@@ -144,7 +167,7 @@ app.get('/', (req, res) => {
   });
 
     //read (filtered by user)
-    app.get('/songs', isAuthenticated, async (req, res) => {
+    app.get('/songs', checkAuthenticated, async (req, res) => {
       try {
         const songs = await Song.find({ userId: req.user.id });
         res.render('songs', { songs });
@@ -159,7 +182,7 @@ app.get('/songs/create', (req, res) => {
   res.render('create-song', { title: 'Create a New Song' });
 });
 
-  app.get('/songs/:id([a-fA-F0-9]{24})', isAuthenticated, async (req, res) => {
+  app.get('/songs/:id([a-fA-F0-9]{24})', checkAuthenticated, async (req, res) => {
     try {
       const song = await Song.findOne({ _id: req.params.id, userId: req.user.id });
       if (!song) {
@@ -175,7 +198,7 @@ app.get('/songs/create', (req, res) => {
 
   //Edit
 
-  app.get('/songs/:id([a-fA-F0-9]{24})/edit', isAuthenticated, async (req, res) => {
+  app.get('/songs/:id([a-fA-F0-9]{24})/edit', checkAuthenticated, async (req, res) => {
     try {
       const song = await Song.findOne({ _id: req.params.id, userId: req.user.id });
       if (!song) {
@@ -191,7 +214,7 @@ app.get('/songs/create', (req, res) => {
 
 
     //update
-    app.post('/songs/:id([a-fA-F0-9]{24})/update', isAuthenticated, async (req, res) => {
+    app.post('/songs/:id([a-fA-F0-9]{24})/update', checkAuthenticated, async (req, res) => {
       try {
         const updatedSong = await Song.findOneAndUpdate(
           { _id: req.params.id, userId: req.user.id },
@@ -211,7 +234,7 @@ app.get('/songs/create', (req, res) => {
       
   //delete
 
-  app.post('/songs/:id([a-fA-F0-9]{24})/delete', isAuthenticated, async (req, res) => {
+  app.post('/songs/:id([a-fA-F0-9]{24})/delete', checkAuthenticated, async (req, res) => {
     try {
       await Song.deleteOne({ _id: req.params.id, userId: req.user.id });
       res.redirect('/songs');
@@ -263,14 +286,10 @@ app.get('/songs/create', (req, res) => {
 });
 
   
-  //checking for user/admin access 
+ 
 
-  function isAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next();
-    }
-    res.redirect('/login');
-  }
+
+  
   
   function isAdmin(req, res, next) {
     if (req.user && req.user.username === "admin") {
