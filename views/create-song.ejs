@@ -13,30 +13,41 @@
     <%- include('./partials/navbar.ejs') %>
     
     <% if (user && user.isAdmin) { %>
-        <div class="adminAccessDenied">
+        <div style="background-color: red;
+        color: aliceblue;
+        text-align: center;
+        margin: auto;
+        margin-bottom: 20px;
+        width: 600px;
+        height:fit-content;
+        padding: 40px;">
+        
             <p> As Admin, you really shouldn't be doing that.<br> Log in as a normal user instead. </p>
             <img src="\media\accessdenied.gif" alt="Access Denied" width="300" height="200">
         </div>
         <% } else { %>
-        <div class="container polaroid">
-            <div class="maincard">
-                <h1>Add a song to your playlist </h1>
-                <form class="row g-3" action="/songs" method="post">
-                    <div class="col-auto">
+        <div class="container" style="width: 800px;
+        min-height: 500px;
+        margin: auto;
+        padding: 20px;
+        border: 5px;
+        text-align: center; ">
+            
+                <h2>Add a song to your playlist </h2>
+                <div  style=" width: 300px; margin: auto;">
+                <form action="/songs" method="post">
+                    
                         <label for="title">Title:</label>
                         <input class="form-control" type="text" id="title" name="title" required>
                         <br>
-                        <button class="btn btn-primary mb-3 myFormBTN" type="submit">Add to Playlist</button>
-                    </div>
-
-                    <div class="col-auto">
                         <label for="style">Style:</label>
                         <input class="form-control" type="text" id="style" name="style" required>
                         <br>
-                    </div>
-
+                        <button class="btn btn-primary mb-3 myFormBTN" type="submit">Add to Playlist</button>
+                
                 </form>
-            </div>
+                </div>
+            
         </div>
         <% } %>
 </body>

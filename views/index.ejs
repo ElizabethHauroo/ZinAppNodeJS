@@ -14,27 +14,33 @@
   <%- include('./partials/navbar.ejs') %>
   <img src="media/dance4.jpg" class="background">
 
-    <div class="homeDiv">
+    
 
 
       <% if (user&& user.isAdmin) { %>
-        <div class="container adminDiv">
+      
+  <div class="container adminDiv">
   
-          <h1>Admin Page</h1>
-    
-          <p>Hello, <%= user.username %>!</p>
-          <h3> Admin Actions: </h3>
-          <div class ="adminActionsDiv">
-            <button class="btn btn-light" href="/admin/songs"><a href="/admin/songs">View All Entries</a></button>
-        <button class="btn btn-light" href="/all-users"><a href="/all-users">Delete Users</a></button>
+    <div class="rotating-text-wrapper">
+      <h2>Admin Page</h2>
+      <h2><%= user.username %>!</h2>
+    </div>
+
+      
+      
+      <div class ="adminActionsDiv">
+        <h4> Admin Actions: </h4>
+        <p>As admin of ZinList, here are your admin priviledges: </p>
+        <button class="btn btn-info" href="/admin/songs"><a class="noLink" href="/admin/songs">View All Entries</a></button>
+        <button class="btn btn-danger" href="/all-users"><a class="noLink"href="/all-users">Delete Users</a></button>
         
 
-          </div>
-          <button class="btn btn-warning" href="/logout"><a href="/logout">Logout</a></button>
-          
       </div>
+     
+      
+  </div>
         <% } else if (user) { %>
-          
+          <div class="homeDiv">
           <div class="container">
             <div class="rotating-text-wrapper">
               <h2>Welcome</h2>
@@ -44,14 +50,15 @@
             
             <p > As Zumba instructors, we all know the struggle of hearing a good song but forgetting to add it to our playlist afterwards. <br>Well, with ZinList you can keep track of all those dancefloor jams by adding them to your own playlist! <br> Use the tab above to view all those tunes you've already added, or add some more by clicking below! </p>
             <div>
-              <button class="btn btn-outline-success" href="/songs/create">Got a new tune? </button>
+              <a class="noLink" href="/songs/create"><button class="btn btn-outline-success" >Got a new tune? </button></a>
             </div>
-          </div>
+          </div></div>
           <% } else { %>
+            <div class="homeDiv">
             <h1>Welcome Stranger!</h1>
             <p>Not Much to do here for you unless you're registered.. </p>
             <img src="\media\tumbleweed.gif" alt="tumbleweed rolling" width="300" height="200">
-
+</div>
             <% } %>
 
 

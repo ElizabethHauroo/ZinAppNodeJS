@@ -1,37 +1,57 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Songs</title>
-  <link
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Songs</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
 <body>
     <%- include('./partials/navbar.ejs') %>
 
 
         <div class="homeDiv">
             <% if (user && user.isAdmin) { %>
-                <h1>Everyones Songs</h1>
-                <% } else if (user) { %>
-                    <% } %>
-                        <a href="/songs/create"><button class="btn btn-success"">New Entry</button></a>
+                <div style="background-color: red;
+        color: aliceblue;
+        text-align: center;
+        margin: auto;
+        margin-bottom: 20px;
+        width: 600px;
+        height:fit-content;
+        padding: 40px;">
+        
+            <p> As Admin, you can't have a personal playlist. <br> Log in as a normal user instead. </p>
+            <img src="\media\accessdenied.gif" alt="Access Denied" width="300" height="200">
+        </div>
+                <% } else if (user && !user.isAdmin) { %>
+                    
+                        <a href="/songs/create"><button class="btn btn-success" style="margin: auto;">New Entry</button></a>
                         <br>
-                        <br>
-
-                        <ul class="ulEachUser">
+                        <br><hr>
+                        <ul class=" ulEachUser">
                             <% songs.forEach(song=> { %>
-                                <a href="/songs/<%= song._id %>">
-                                <li class="eachUser">
+                                    
+                                <li style= "list-style: none;
+                                margin:10px;">
 
-                                    <%= song.title %><br>
-                                        <strong>Style:</strong>
-                                        <%= song.style %>
-                                </li></a>
-                                <% }) %>
+                                    <div class="card" style="min-width: 300px;
+                                                            background-color: rgb(249, 249, 249);
+                                                            border-color: #8d775f;">
+                                        <div class="card-body">
+                                            <h6 class="card-title"><%= song.title %></h6><hr>
+                                            <p class="card-text"><%= song.style %></p>  
+                                            <a href="/songs/<%= song._id %>" 
+                                                class="btn btn-outline-info btn-sm"
+                                                style="width: 100px;">View</a>   
+                                        </div>
+                                    </div>
+                                </li>
+                                    
+                            <% }) %>
                         </ul>
+                <% } %>
         </div>
 </body>
 

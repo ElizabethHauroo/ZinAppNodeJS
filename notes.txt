@@ -36,6 +36,36 @@ remove the check for admin so anyone can access the page in question
 it is safer to have the password for admin saved in the env variables. 
 password verification step  
 
+############Reusable############
+
+style="margin:10px; min-width: 300px;
+          height:80px; 
+          list-style: none; 
+          background-color: #f5eccd;
+          border-color: #8d775f;
+          padding: 10px;
+          border: 0.5px;
+          border-style:solid;
+          border-radius: 5px;"
+
+          <a href="/songs/<%= song._id %>" class="btn btn-primary">View</a>
+
+
+
+          <ul class="ulEachUser">
+                            <% songs.forEach(song=> { %>
+                                <a class="noLink" href="/songs/<%= song._id %>">
+                                <li class="eachUser">
+
+                                    <%= song.title %><br>
+                                        <strong>Style:</strong>
+                                        <%= song.style %>
+                                </li></a>
+                                <% }) %>
+                        </ul>
+
+
+##########################
 
 
 
