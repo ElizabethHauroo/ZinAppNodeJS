@@ -9,7 +9,11 @@ const mongoose = require('mongoose');
 const User = require('./models/user');
 const Song = require('./models/song');
 const path = require('path');
+//const axios = require('axios');
+//const flash = require('connect-flash');
 const { checkAuthenticated, checkNotAuthenticated } = require('./middleware/authMiddleware');
+const { body, validationResult } = require('express-validator');
+
 
 // Connect to the cloud database
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -21,6 +25,7 @@ app.use(express.static('views'));
 
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
+//app.use(flash());
 
 
 
@@ -41,7 +46,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
-// Routes Middlewear
+// Routes & Middlewear
 
 app.get('/', (req, res) => {
     res.render('index');
@@ -76,7 +81,29 @@ app.get('/', (req, res) => {
     res.render('register');
   });
   
-  app.post('/register', checkNotAuthenticated, async (req, res) => {
+  app.post('/register',
+  [
+    // Validation and sanitization rules
+  
+    body('username')
+      .trim()
+      .isEmail().withMessage('Email must be a valid email address')
+      .normalizeEmail(),
+
+    body('password')
+      .trim()
+      .isLength({ min: 8 }).withMessage('Password must be at least 8 characters long')
+      .matches(/\d/).withMessage('Password must contain a number')
+  ],
+  checkNotAuthenticated,
+  async (req, res) => {
+    // Check for validation errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      // If there are errors, return them as a JSON response or handle them as needed
+      return res.render('register', { errors: errors.array() });
+    }
+
     try {
       const user = await User.register(new User({ username: req.body.username }), req.body.password);
       passport.authenticate('local')(req, res, () => {
@@ -86,7 +113,8 @@ app.get('/', (req, res) => {
       res.redirect('/register');
     }
   });
-  
+
+
   app.get('/logout', (req, res) => {
     req.session.destroy(err => {
       if (err) {

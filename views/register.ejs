@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,31 +8,50 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
 <body>
   <%- include('./partials/navbar.ejs') %>
-  <img src="media/dance4.jpg" class="background">
+    <img src="media/dance4.jpg" class="background">
 
-  <div class="homeDiv">
-  <h1>Register</h1>
-  <form class="row g-3 middleForm" action="/register" method="post">
-    <div class="col-auto">
-    <label for="username">Username:</label>
-    <input class="form-control" type="text" name="username" id="username" required>
-    <br></div>
-    <div class="col-auto">
-    <label for="password">Password:</label>
-    <input class="form-control" type="password" name="password" id="password" required>
-    <br></div>
-    <div class="myFormBTN">
-    <button class="btn btn-outline-success mb-3" type="submit">Register</button>
-  </div>
-  </form>
-  <br><br><hr>
-  <div><a href="/login">
-    <button class="btn btn-outline-info mb-3" href="/login">Have an Account? Login Here!</button></a>
-  </div>
-  
+    <div class="homeDiv">
+      <h1>Register</h1>
+      <form class="row g-3 middleForm" action="/register" method="post">
+        <div class="col-auto">
+          <label for="username">Email:</label>
+          <input class="form-control" type="text" name="username" id="username" required>
+          <br>
+        </div>
+        <div class="col-auto">
+          <label for="password">Password:</label>
+          <input class="form-control" type="password" name="password" id="password" required><p id="password-strength"></p>
+          <br>
+        </div>
+        <div class="myFormBTN">
+          <button id="submit-button" class="btn btn-outline-success mb-3" type="submit">Register</button>
+        </div>
+        <br>
+      </form>
+      <br><div>
+        <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+          <ul class="errorList">
+            <% errors.forEach(function(error) { %>
+              
+              <li class="eachError"><%= error.msg %></li>
+            <% }); %>
+          </ul>
+        <% } %>
+        
+      </div><br>
+      <hr>
+      <div><a href="/login">
+          <button class="btn btn-outline-info mb-3" href="/login">Have an Account? Login Here!</button></a>
+      </div>
 
-</div>
+
+    </div>
+
+    <script src="/password-strength.js"></script>
+
 </body>
+
 </html>

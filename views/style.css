@@ -53,6 +53,20 @@ body {
     align-items: center;
 }
 
+.errorList{
+  width: fit-content;
+  margin: auto;
+  padding-right: 35px;
+  background-color: #fb6b1216;
+  border-color: red;
+  border: 1px;
+  border-style: solid;
+}
+.eachError{
+  list-style: none;
+  color: red;
+}
+
 .eachUser{
     margin: 10px;
     background-color: #f5eccd;

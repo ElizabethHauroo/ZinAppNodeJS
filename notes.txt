@@ -38,6 +38,48 @@ password verification step
 
 ############Reusable############
 
+
+
+  app.post('/register', checkNotAuthenticated, async (req, res) => {
+    try {
+      const user = await User.register(new User({ username: req.body.username }), req.body.password);
+      passport.authenticate('local')(req, res, () => {
+        res.redirect('/');
+      });
+    } catch (e) {
+      res.redirect('/register');
+    }
+  });
+
+
+
+<script>
+  function checkPasswordStrength() {
+    const passwordInput = document.getElementById('password');
+    const passwordStrengthMessage = document.getElementById('passwordStrengthMessage');
+    const password = passwordInput.value;
+
+    const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})');
+    const mediumRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})');
+
+    if (strongRegex.test(password)) {
+      passwordStrengthMessage.style.color = 'green';
+      passwordStrengthMessage.innerText = 'Strong';
+    } else if (mediumRegex.test(password)) {
+      passwordStrengthMessage.style.color = 'orange';
+      passwordStrengthMessage.innerText = 'Medium';
+    } else {
+      passwordStrengthMessage.style.color = 'red';
+      passwordStrengthMessage.innerText = 'Weak';
+    }
+
+    if (password === '') {
+      passwordStrengthMessage.innerText = '';
+    }
+  }
+</script>
+
+
 style="margin:10px; min-width: 300px;
           height:80px; 
           list-style: none; 
