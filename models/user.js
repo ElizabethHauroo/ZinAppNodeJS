@@ -1,15 +1,20 @@
 const mongoose = require('mongoose');
-const passportLocalMongoose = require('passport-local-mongoose');
 
+
+// **  INSECURE BRANCH ** 
+// simple schema - removed: passportLocalMongoose
 const UserSchema = new mongoose.Schema({
-  username: String,
-  password: String,
-  isAdmin: {
-    type: Boolean,
-    default: false
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
   }
 });
 
-UserSchema.plugin(passportLocalMongoose);
+
 
 module.exports = mongoose.model('User', UserSchema);

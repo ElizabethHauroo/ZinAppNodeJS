@@ -36,10 +36,41 @@ app.use((req, res, next) => {
   });
 app.use(flash());
 
-// Passport authentication configuration
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// **  INSECURE BRANCH ** 
+// Comparing the password entered to the password in the database (stored in plain text)
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const user = await User.findOne({ username: username });
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (user.password !== password) { // Compare plaintext passwords directly
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    } catch (e) {
+      return done(e);
+    }
+  })
+);
+
+// **  INSECURE BRANCH ** 
+// lets the new users that registered with the plain passwords log in 
+// nullifying the serialization
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (error) {
+    done(error, null);
+  }
+});
+
 
 
 // Routes Middlewear
@@ -77,25 +108,20 @@ app.get('/', (req, res) => {
     res.render('register');
   });
   
-  app.post('/register', checkNotAuthenticated, async (req, res) => {
+  // **  INSECURE BRANCH ** 
+  // Saves the password in plain text inside the database - no hashing
+  app.post('/register', async (req, res) => {
     try {
-      const user = await User.register(new User({ username: req.body.username }), req.body.password);
-      passport.authenticate('local')(req, res, () => {
-        res.redirect('/');
+      const newUser = new User({
+        username: req.body.username,
+        password: req.body.password, // Store the plaintext password directly
       });
+  
+      await newUser.save();
+      res.redirect('/login');
     } catch (e) {
       res.redirect('/register');
     }
-  });
-  
-  app.get('/logout', (req, res) => {
-    req.session.destroy(err => {
-      if (err) {
-        console.error('Error destroying session:', err);
-        return res.sendStatus(500);
-      }
-      res.redirect('/');
-    });
   });
 
   // SONGS CRUD
@@ -252,7 +278,7 @@ app.get('/songs/create', (req, res) => {
     }
     res.status(403).send('Access Denied. Admins Only');
   }
-  
+ 
   
 
 //const port = process.env.PORT || 3000;
