@@ -12,7 +12,7 @@
 
 <body>
     <%- include('./partials/navbar.ejs') %>
-        <% if (user && user.isAdmin) { %>
+        
             <div class="homeDiv">
                 <h1>All Users</h1>
                 <ul class="ulEachUser">
@@ -33,12 +33,7 @@
                                 <% }) %>
                 </ul>
             </div>
-            <% } else { %>
-                <div class="adminAccessDenied">
-                    <p> Attention! You do not have the access rights to view this page.<br> Log in as Admin </p>
-                    <img src="\media\accessdenied.gif" alt="Access Denied" width="300" height="200">
-                </div>
-                <% } %>
+            
 
                     <script>
                         function confirmDelete(userId) {

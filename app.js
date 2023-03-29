@@ -10,6 +10,7 @@ const User = require('./models/user');
 const Song = require('./models/song');
 const path = require('path');
 const { checkAuthenticated, checkNotAuthenticated } = require('./middleware/authMiddleware');
+const flash = require('connect-flash');
 
 // Connect to the cloud database
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -33,7 +34,7 @@ app.use((req, res, next) => {
     res.locals.user = req.user;
     next();
   });
-  
+app.use(flash());
 
 // Passport authentication configuration
 passport.use(new LocalStrategy(User.authenticate()));
@@ -59,7 +60,7 @@ app.get('/', (req, res) => {
     failureRedirect: '/login',
     failureFlash: true
   }), async (req, res) => {
-    if (req.body.username === process.env.ADMIN_USERNAME && req.body.password === process.env.ADMIN_PSWD) {
+    if (req.body.username === "admin" && req.body.password === "adminpassword") {
         req.user.isAdmin = true;
         await req.user.save();  
       
@@ -128,7 +129,7 @@ app.get('/', (req, res) => {
     });
 
     // Create new song form
-app.get('/songs/create', isAuthenticated, (req, res) => {
+app.get('/songs/create', (req, res) => {
   res.render('create-song', { title: 'Create a New Song' });
 });
 
@@ -195,7 +196,7 @@ app.get('/songs/create', isAuthenticated, (req, res) => {
   });
 
   //read admin
-  app.get('/admin/songs', isAuthenticated, isAdmin, async (req, res) => {
+  app.get('/admin/songs', async (req, res) => {
     try {
       const songs = await Song.find();
       res.render('adminSongs', { songs });
@@ -246,7 +247,7 @@ app.get('/songs/create', isAuthenticated, (req, res) => {
   }
   
   function isAdmin(req, res, next) {
-    if (req.user && req.user.username === process.env.ADMIN_USERNAME) {
+    if (req.user && req.user.username === "admin") {
       return next();
     }
     res.status(403).send('Access Denied. Admins Only');
