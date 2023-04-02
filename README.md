@@ -3,7 +3,15 @@ SAP CA 3 - Secure Branch
 
 This branch is where all the secure implementations are located. 
 
-NodeJS Application can run on localhost on port 5000
+NodeJS Application can run on `localhost` on `port 5000`
+
+Installs that may be needed: 
+`npm install`
+`npm install ejs`
+To run the application:
+`node app.js`
+
+*** 
 
 Access: 
 
@@ -35,3 +43,4 @@ password: #letM3!n007
 2.  http://localhost:5000/admin/songs
 3.  http://localhost:5000/all-users 
 
+***
