@@ -19,11 +19,7 @@ To run the application:
 Access: 
 
 **Administrator:**
-
-Username: _TheAdminAdvantage_
-
-Password: _ahKi$90i!gDf00d_
-- should have exclusive access to: 
+Username and password within Documentation under **Version Control**
 
 1.  http://localhost:5000/admin 
 2.  http://localhost:5000/admin/songs
@@ -34,7 +30,9 @@ Password: _ahKi$90i!gDf00d_
 
 
 **Test User:**
+
 email: tester@email.com
+
 password: #letM3!n007
 - Should have access to:
 
