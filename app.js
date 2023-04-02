@@ -111,6 +111,7 @@ app.get('/', (req, res) => {
   });
   
   // **  INSECURE BRANCH ** 
+  //No validation or sanitization of input
   // Saves the password in plain text inside the database - no hashing
   app.post('/register', async (req, res) => {
     try {
