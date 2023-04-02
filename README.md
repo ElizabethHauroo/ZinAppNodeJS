@@ -29,7 +29,7 @@ Username and password within Documentation under **Version Control**
 1.  http://localhost:5000/songs/create 
 
 
-**Test User:**
+**Test User:** (or feel free to register your own)
 
 email: tester@email.com
 
