@@ -8,6 +8,6 @@ This branch contains the bare bones of the application:
 - Basic CRUD functions
 - Web Page Linking
 
-Navigate to these branches for implementations of the code within the scope of the porject: 
+Navigate to these branches for implementations of the code within the scope of the project: 
 * `Secure-branch`
 * `Insecure-branch`
