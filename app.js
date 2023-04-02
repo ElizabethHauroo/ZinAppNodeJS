@@ -11,7 +11,7 @@ const Song = require('./models/song');
 const path = require('path');
 //const axios = require('axios');
 //const flash = require('connect-flash');
-const { checkAuthenticated, checkNotAuthenticated } = require('./middleware/authMiddleware');
+const { checkNotAuthenticated } = require('./middleware/authMiddleware');
 const { body, validationResult } = require('express-validator');
 
 
@@ -31,7 +31,7 @@ app.use(methodOverride('_method'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
+app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false, name: 'myAppName' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {
@@ -105,7 +105,7 @@ app.get('/', (req, res) => {
     }
 
     try {
-      const user = await User.register(new User({ username: req.body.username }), req.body.password);
+      //const user = await User.register(new User({ username: req.body.username }), req.body.password);
       passport.authenticate('local')(req, res, () => {
         res.redirect('/');
       });
@@ -238,7 +238,7 @@ app.get('/songs/create', isAuthenticated, (req, res) => {
       const users = await User.find({});
       res.render('all-users', { users });
     } catch (error) {
-      console.log(error);
+     // console.log(error);
       res.status(500).send('Internal server error');
     }
   });
@@ -258,7 +258,7 @@ app.get('/songs/create', isAuthenticated, (req, res) => {
       await User.findByIdAndDelete(req.params.id);
       res.redirect('/all-users');
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       res.status(500).send('Internal server error');
     }
 });
