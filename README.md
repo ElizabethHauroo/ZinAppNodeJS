@@ -6,10 +6,13 @@ This branch is where all the secure implementations are located.
 NodeJS Application can run on `localhost` on `port 5000`
 
 Installs that may be needed: 
-`npm install`
-`npm install ejs`
+
+1. `npm install`
+2. `npm install ejs`
+
 To run the application:
-`node app.js`
+
+1. `node app.js`
 
 *** 
 
