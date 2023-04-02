@@ -8,8 +8,8 @@ NodeJS Application can run on localhost on port 5000
 Access: 
 
 **Administrator:**
-username: _TheAdminAdvantage_
-password: _ahKi$90i!gDf00d_
+Username: _TheAdminAdvantage_
+Password: _ahKi$90i!gDf00d_
 - should have exclusive access to: 
 ..* http://localhost:5000/admin 
 ..* http://localhost:5000/admin/songs
